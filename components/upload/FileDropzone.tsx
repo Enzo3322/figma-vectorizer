@@ -8,7 +8,7 @@ import { UploadedFile } from '@/types/vectorization';
 
 interface FileDropzoneProps {
   onFileSelect: (file: UploadedFile) => void;
-  selectedFile?: UploadedFile;
+  selectedFile?: UploadedFile | null;
 }
 
 export default function FileDropzone({ onFileSelect, selectedFile }: FileDropzoneProps) {

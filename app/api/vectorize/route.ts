@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { vectorize } from '@/lib/vectorizer/vectorize';
 import { optimizeSVG, validateFigmaCompatibility } from '@/lib/vectorizer/svg-optimizer';
 import { VectorizeOptions } from '@/types/vectorization';
-import { getUploadedFile } from '../upload/route';
+import { getUploadedFile } from '@/lib/upload-store';
 
 export async function POST(request: NextRequest) {
   try {

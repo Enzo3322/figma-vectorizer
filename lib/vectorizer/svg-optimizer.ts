@@ -61,10 +61,7 @@ export function optimizeSVG(svgString: string, options: OptimizationOptions = { 
       ...(level > 70
         ? [
             {
-              name: 'mergePaths',
-              params: {
-                force: true,
-              },
+              name: 'mergePaths' as const,
             },
           ]
         : []),

@@ -30,7 +30,7 @@ export async function vectorizeImage(
   };
 
   return new Promise((resolve, reject) => {
-    Potrace.trace(preprocessed.buffer, potraceOptions, (err, svg) => {
+    Potrace.trace(preprocessed.buffer, potraceOptions, (err: any, svg: string) => {
       if (err) {
         reject(new Error(`Vectorization failed: ${err.message}`));
         return;

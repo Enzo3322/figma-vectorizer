@@ -1,9 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { validateImageFile } from '@/lib/utils/validation';
-
-// Store uploaded files in memory (simple MVP approach)
-// In production, consider using a database or cloud storage
-const uploadedFiles = new Map<string, { buffer: Buffer; metadata: any }>();
+import { storeUploadedFile } from '@/lib/upload-store';
 
 export async function POST(request: NextRequest) {
   try {
@@ -34,7 +31,7 @@ export async function POST(request: NextRequest) {
     const fileId = `${Date.now()}-${file.name}`;
 
     // Store in memory
-    uploadedFiles.set(fileId, {
+    storeUploadedFile(fileId, {
       buffer,
       metadata: {
         name: file.name,
@@ -43,11 +40,6 @@ export async function POST(request: NextRequest) {
         uploadedAt: new Date().toISOString(),
       },
     });
-
-    // Clean up old files after 30 minutes
-    setTimeout(() => {
-      uploadedFiles.delete(fileId);
-    }, 30 * 60 * 1000);
 
     return NextResponse.json({
       success: true,
@@ -65,9 +57,4 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
-
-// Export function to retrieve uploaded files
-export function getUploadedFile(fileId: string) {
-  return uploadedFiles.get(fileId);
 }
